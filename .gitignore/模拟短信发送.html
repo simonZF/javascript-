@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>模拟短信发送</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                border:0;
+            }
+            .text{
+                width: 300px;
+                height: 400px;
+                margin: 0 auto;
+                border:2px solid #333;
+                padding:20px;
+                position:relative;
+            }
+            .dialog{
+                font-size:0;
+                line-height:0;
+                margin-bottom:10px;
+                height: auto;
+                overflow:hidden;
+            }
+            .dialog *{
+                float:left;
+                display: block;
+            }
+            .dialog .avatar{
+                width: 20px;
+                height: 20px;
+                line-height:20px;
+                font-size:14px;
+                text-align:center;
+                border:1px solid #333;
+                border-radius:50%;
+                margin-right:10px;
+                vertical-align:top;
+            }
+            .dialog p{
+                font-size:14px;
+                line-height:20px;
+                vertical-align:top;
+                max-width:268px;
+                word-break:break-word
+            }
+            .send_area{
+                position: absolute;
+                width: 300px;
+                padding: 10px 20px;
+                height: 22px;
+                font-size: 0;
+                line-height: 0;
+                bottom: 0;
+                left: 0;
+                background-color: #f2f2f2;
+            }
+            .send_area *{
+                display: inline-block;
+                font-size:14px;
+                line-height:20px;
+                vertical-align:middle;
+            }
+            .send_area .avatar{
+                width: 20px;
+                height: 20px;
+                text-align:center;
+                border:1px solid #333;
+                border-radius:50%;
+                margin-right:10px;
+                cursor: pointer;
+            }
+            .send_area input{
+                width: 210px;
+                border:1px solid #333;
+                margin-right:10px;
+            }
+            .phone .dialog:nth-child(odd) *{
+                float:left;
+            }
+            .phone .dialog:nth-child(even) *{
+                float:right;
+            }
+            .phone .dialog:nth-child(even) .avatar{
+                margin-right:0;
+                margin-left:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="text">
+            <div class="phone" id="phone"></div>
+            <div class="send_area">
+                <span class="avatar" id="avatar">A</span>
+                <input type="text" id="text" value="">
+                <a href="javascript:void(0)" class="send" id="send">发送</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var oAvatar = document.getElementById("avatar");
+            var oSend = document.getElementById("send");
+            var oText = document.getElementById("text");
+            var oPhone = document.getElementById("phone");
+            var dialog = "";
+            oAvatar.avatar = 0;
+            oAvatar.onclick = function(){
+                if(this.avatar == 0){
+                    this.innerHTML = "B";
+                    this.avatar = 1;
+                }else{
+                    this.innerHTML = "A";
+                    this.avatar = 0
+                }
+            }
+            oSend.onclick = function(){
+                if(oText.value == ""){
+                    alert("不能为空")
+                }else{
+                    if(oAvatar.avatar == 0){//A发送的
+                        dialog = "<div class='dialog'><span class='avatar'>" + "A" + "</span><p>"+ oText.value + "</p></div>"
+                    }else{
+                        dialog = "<div class='dialog'><span class='avatar'>" + "B" + "</span><p>"+ oText.value + "</p></div>"
+                    }
+                    oPhone.innerHTML += dialog;
+                }
+            }
+        </script>
+    </body>
+</html>
