@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>点击生成V字DIV</title>
+        <style>
+            #content{
+                display:none;
+                margin-top:20px;
+                position: relative;
+            }
+            #content div{
+                width: 30px;
+                height: 30px;
+                background-color:#f2f2f2;
+                position:absolute;
+                text-align:center;
+                line-height:30px;
+            }
+        </style>
+    </head>
+    <body>
+        <input id="btn" type="button" value="生成div">
+        <div id="content">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+        </div>
+        <script type="text/javascript">
+            var oBtn = document.getElementById("btn");
+            var oDiv = document.getElementById("content");
+            var aDiv = oDiv.getElementsByTagName("div");
+            //初始化btn 的index
+            oBtn.index = 0;
+            oBtn.onclick = function(){
+                if(this.index == 0){
+                    for(var i = 0;i<aDiv.length;i++){
+                        aDiv[i].style.left = 30*i + "px";
+                        if(i == 0 || i == 4){
+                            aDiv[i].style.top = 0;
+                        }else if( i == 1 || i == 3 ){
+                            aDiv[i].style.top = "30px";
+                        }else{
+                            aDiv[i].style.top = "60px";
+                        }
+                    }
+                    this.index = 1;
+                }else if(this.index == 1){
+                    for(var i = 0;i<aDiv.length;i++){
+                        aDiv[i].style.top = 30*i + "px";
+                        if(i == 0 || i == 4){
+                            aDiv[i].style.left = "150px";
+                        }else if( i == 1 || i == 3 ){
+                            aDiv[i].style.left = "120px";
+                        }else{
+                            aDiv[i].style.left = "90px";
+                        }
+                    }
+                    this.index = 2;
+                }else if(this.index == 2){
+                    for(var i = 0;i<aDiv.length;i++){
+                        aDiv[i].style.left = 30*i + "px";
+                        if(i == 0 || i == 4){
+                            aDiv[i].style.top = "120px";
+                        }else if( i == 1 || i == 3 ){
+                            aDiv[i].style.top = "90px";
+                        }else{
+                            aDiv[i].style.top = "60px";
+                        }
+                    }
+                    this.index = 3;
+                }else{
+                    for(var i = 0;i<aDiv.length;i++){
+                        aDiv[i].style.top = 30*i + "px";
+                        if(i == 0 || i == 4){
+                            aDiv[i].style.left = "0";
+                        }else if( i == 1 || i == 3 ){
+                            aDiv[i].style.left = "30px";
+                        }else{
+                            aDiv[i].style.left = "60px";
+                        }
+                    }
+                    this.index = 0;
+                }
+                oDiv.style.display = "block";
+            }
+        </script>
+    </body>
+</html>
