@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>图片切换</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                border:0;
+            }
+            #contain{
+                width: 750px;
+                height: 422px;
+                position:relative;
+                border:1px solid #e8e8e8;
+                margin-top:10px;
+                overflow:hidden
+            }
+            #num{
+                text-align:center;
+                line-height:1.5;
+                background-color:#333;
+                opacity:.8;
+                color:#fff;
+            }
+            #contain img{
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="button" id="unloop" value="顺序播放">
+        <input type="button" id="loop" value="循环播放">
+        <p id="way"></p>
+        <div id="contain">
+            <p id="num">加载中</p>
+            <img id="img" src="" alt="">
+        </div>
+        <input type="button" id="prev" value="上一张">
+        <input type="button" id="next" value="下一张">
+        <script type="text/javascript">
+            var slideImg = function(){
+                this._init();
+            }
+            slideImg.prototype =  {
+                $el:{
+                    oUnloop:document.getElementById("unloop"),
+                    oLoop:document.getElementById("loop"),
+                    oWay:document.getElementById("way"),
+                    oNum:document.getElementById("num"),
+                    oImg:document.getElementById("img"),
+                    oPrev:document.getElementById("prev"),
+                    oNext:document.getElementById("next"),
+                    oContain:document.getElementById("contain"),
+                    aImg : ["./images/v1.jpg","./images/v2.jpg","./images/v3.jpg","./images/v4.jpg"]
+                },
+
+                _init:function(){
+                    this.$el.oNum.innerHTML = "1/" + this.$el.aImg.length;
+                    this.$el.oImg.src = this.$el.aImg[0];
+                    this.$el.oWay.innerHTML = "顺序播放";
+                    this.$el.oContain.type = "1";
+                    this.$el.oImg.index = 1;
+                    this.addEvent();
+                },
+                addEvent:function(){
+                    var that = this;
+                    var index = that.$el.oImg.index;
+                    var length = that.$el.aImg.length;
+                    //播放方式
+                    this.$el.oUnloop.onclick = function(){
+                        that.$el.oWay.innerHTML = "顺序播放";
+                        that.$el.oContain.type = "1"
+                    }
+                    this.$el.oLoop.onclick = function(){
+                        that.$el.oWay.innerHTML = "循环播放";
+                        that.$el.oContain.type = "0"
+                    }
+                    // 下一张
+                    this.$el.oNext.onclick = function(){
+                        if(that.$el.oContain.type == "1"){//顺序播放
+                            if(index < length){
+                                index++;
+                            }else{
+                                alert("已经是最后一张图片了");
+                            }
+                        }else{//循环播放
+                            if(index < length){
+                                index++;
+                            }else{
+                                index = 1;
+                            }
+                        }
+                        that.$el.oNum.innerHTML = index +  "/" + length;
+                        that.$el.oImg.src = that.$el.aImg[index - 1];
+                        that.$el.oImg.index = index ;
+                    }
+                    this.$el.oPrev.onclick = function(){
+
+                        if(that.$el.oContain.type == "1"){//顺序播放
+                            if(index == 1){
+                                alert("已经是第一张图片了");
+                            }else{
+                                index--;
+                            }
+                        }else{//循环播放
+                            if(index == 1){
+                                index = 4;
+                            }else{
+                                index--;
+                            }
+                        }
+                        that.$el.oNum.innerHTML = index +  "/" + length;
+                        that.$el.oImg.src = that.$el.aImg[index - 1];
+                        that.$el.oImg.index = index ;
+                    }
+                }
+            };
+            new slideImg();
+        </script>
+    </body>
+</html>
