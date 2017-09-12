@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>qq列表收缩展开</title>
+        <style>
+            #contain{
+                border:1px solid #333;
+                width: 300px;
+                height: auto;
+                overflow:hidden;
+                margin:50px auto;
+
+            }
+            h2{
+                padding-left:20px;
+                background-color:#e8e8e8;
+            }
+            h2.active{
+                background-color:#f98b8b;
+            }
+            section{
+                display: none;
+            }
+            p{
+                padding-left:20px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div id="contain">
+            <div class="list">
+                <h2>我的好友</h2>
+                <section>
+                    <p>张三</p>
+                    <p>张三</p>
+                    <p>张三</p>
+                </section>
+
+            </div>
+            <div class="list">
+                <h2>企业好友</h2>
+                <section>
+                    <p>李四</p>
+                    <p>李四</p>
+                    <p>李四</p>
+                    <p>李四</p>
+                </section>
+            </div>
+            <div class="list">
+                <h2>黑名单</h2>
+                <section>
+                    <p>李四</p>
+                    <p>李四</p>
+                    <p>李四</p>
+                    <p>李四</p>
+                </section>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var aH2 = document.getElementsByTagName("h2");
+            var aSec = document.getElementsByTagName("section");
+            for(var j = 0;j< aSec.length;j++){
+                this.index = j;
+            }
+            for(var i = 0;i<aH2.length;i++){
+                aH2[i].index = i;
+                aH2[i].onclick = function() {
+                    for(var k = 0;k<aH2.length;k++){
+                        if(k != i){
+                            aH2[k].className = "";
+                            aSec[k].style.display = "none";
+                        }
+                    }
+                    if(this.className == "active"){
+                        this.className = "";
+                        aSec[this.index].style.display = "none";
+                    }else{
+                        this.className = "active";
+                        aSec[this.index].style.display = "block";
+                    }
+                }
+            }
+
+        </script>
+    </body>
+</html>
