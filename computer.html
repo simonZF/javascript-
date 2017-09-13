@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>计算商品总价</title>
+    </head>
+    <body>
+        <ul id="contain">
+            <li>
+                <button type="button" name="button" class="decrease" value="0">-</button>
+                <span class="num">0</span>
+                <button type="button" name="button" class="increase" value="0">+</button>
+                单价<span class="per">15</span>元，小计<em class="total">0</em>元
+            </li>
+            <li>
+                <button type="button" name="button" class="decrease" value="0">-</button>
+                <span class="num">0</span>
+                <button type="button" name="button" class="increase" value="0">+</button>
+                单价<span class="per">10</span>元，小计<em class="total">0</em>元
+            </li>
+            <li>
+                <button type="button" name="button" class="decrease" value="0">-</button>
+                <span class="num">0</span>
+                <button type="button" name="button" class="increase" value="0">+</button>
+                单价<span class="per">5</span>元，小计<em class="total">0</em>元
+            </li>
+            <li>
+                <button type="button" name="button" class="decrease" value="0">-</button>
+                <span class="num">0</span>
+                <button type="button" name="button" class="increase" value="0">+</button>
+                单价<span class="per">2</span>元，小计<em class="total">0</em>元
+            </li>
+            <li>
+                <button type="button" name="button" class="decrease" value="0">-</button>
+                <span class="num">0</span>
+                <button type="button" name="button" class="increase" value="0">+</button>
+                单价<span class="per">1</span>元，小计<em class="total">0</em>元
+            </li>
+        </ul>
+        商品一共<span id="total_num">0</span>件；<br>
+        一共花<span id="total_spend">0</span>元；<br>
+        其中最贵的商品单价是<span id="expensive">0</span>元；
+        <script type="text/javascript">
+            var oDiv = document.getElementById("contain");
+            var aIncrease = oDiv.getElementsByClassName("increase");
+            var aDecrease = oDiv.getElementsByClassName("decrease");
+            var aNum = oDiv.getElementsByClassName("num");
+            var aTotal = oDiv.getElementsByClassName("total");
+            var aPer = oDiv.getElementsByClassName("per");
+            var oTotalNum = document.getElementById("total_num");
+            var oTotalP = document.getElementById("total_spend");
+            var expensive = document.getElementById('expensive');
+            function sortNumber(a,b)
+            {
+                return a - b
+            }
+            // increase btn
+            for(var i = 0; i<aIncrease.length ; i++){
+                (function(arg){
+                    aIncrease[i].onclick = function() {
+                        this.value++;
+                        aDecrease[arg].value = this.value;
+                        aNum[arg].innerHTML = this.value;
+                        aTotal[arg].innerHTML = this.value * aPer[arg].innerHTML;
+                        var total = 0;
+                        var totalP = 0;
+                        var arr = [];
+                        // 总件数
+                        for(var k = 0;k<5;k++){
+                            total=total +  parseInt(aNum[k].innerHTML);
+                            totalP = totalP + parseInt(aTotal[k].innerHTML);
+                            if(aNum[k].innerHTML != "0"){
+                                arr.push(parseInt(aPer[k].innerHTML));
+                            }
+
+                        }
+                        oTotalNum.innerHTML = total;
+                        oTotalP.innerHTML = totalP;
+                        var arrN = arr.sort(sortNumber);
+                        if(typeof(arrN[arrN.length - 1])!="undefined"){
+                            expensive.innerHTML = arrN[arrN.length - 1];
+                        }else{
+                            expensive.innerHTML = 0;
+                        }
+
+                    };
+                })(i);
+            }
+            // decrease btn
+            for(var j = 0;j<aDecrease.length ; j++){
+                (function(arg){
+                    aDecrease[j].onclick = function(){
+                        if(this.value > 0){
+                            this.value--;
+                            aIncrease[arg].value = this.value;
+                            aNum[arg].innerHTML = this.value;
+                            aTotal[arg].innerHTML = this.value * aPer[arg].innerHTML;
+                            var total = 0;
+                            var totalP = 0;
+                            var arr = [];
+                            // 总件数
+                            for(var k = 0;k<5;k++){
+                                total=total +  parseInt(aNum[k].innerHTML);
+                                totalP = totalP + parseInt(aTotal[k].innerHTML);
+                                if(aNum[k].innerHTML != "0"){
+                                    arr.push(parseInt(aPer[k].innerHTML));
+                                }
+
+                            }
+                            oTotalNum.innerHTML = total;
+                            oTotalP.innerHTML = totalP;
+                            var arrN = arr.sort(sortNumber);
+                            if(typeof(arrN[arrN.length - 1])!="undefined"){
+                                expensive.innerHTML = arrN[arrN.length - 1];
+                            }else{
+                                expensive.innerHTML = 0;
+                            }
+
+                        }
+                    }
+                })(j)
+            }
+
+        </script>
+    </body>
+</html>
