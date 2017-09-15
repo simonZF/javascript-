@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>文字搬运工</title>
+        <style>
+            #left,#right{
+                width: 300px;
+                height: 200px;
+                padding:10px;
+                border:1px solid #e8e8e8;
+                border-radius:10px;
+
+            }
+            #center{
+                width: 100px;
+                text-align:center;
+                padding-top:30px;
+            }
+            #center a{
+                display: block;
+            }
+            #left,#center,#right{
+                float:left;
+            }
+            ul{
+                font-size:0;
+                padding:0;
+                line-height:0;
+                text-align:center;
+                margin-top:30px;
+            }
+            ul li{
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                margin:4px;
+                background-color:#e8e8e8;
+                border-radius:50%;
+            }
+            div span{
+                display: block;
+                text-align:center
+            }
+            li.active{
+                background-color:#f9ba84;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="left">
+            <p>
+                大江东去，浪淘尽，千古风流人物。故垒西边，人道是，三国周郎赤壁。乱石穿空，惊涛拍岸，卷起千堆雪。江山如画，一时多少豪杰。遥想公瑾当年，小乔初嫁了，雄姿英发。羽扇纶巾，谈笑间，樯橹灰飞烟灭。故国神游，多情应笑我，早生华发。人生如梦，一尊还酹江月。
+            </p>
+            <span></span>
+        </div>
+        <div id="center">
+            <a href="javascript:void(0)" id="toLeft"><--</a>
+            <a href="javascript:void(0)" id="toRight">--></a>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div id="right">
+            <p></p>
+            <span></span>
+        </div>
+        <script type="text/javascript">
+            var oLeft = document.getElementById("left");
+            var oRight = document.getElementById("right");
+            var aP = document.getElementsByTagName("p")
+            var aSpan = document.getElementsByTagName("span");
+            var oTL = document.getElementById("toLeft");
+            var oTR = document.getElementById("toRight");
+            var aLi = document.getElementsByTagName('li');
+            var lengL = aP[0].innerHTML.length;
+            var lengR = aP[1].innerHTML.length;
+            var timer = null;
+            oTR.onclick = function() {
+                var i = 0;
+                aLi[0].className = "active";
+                timer = setInterval(function(){
+                    if(aP[0].innerHTML.length <=0){
+                        clearInterval(timer);
+                    }else{
+                        aP[1].innerHTML+= aP[0].innerHTML.substr(0,1);
+                        aP[0].innerHTML = aP[0].innerHTML.substring(1);
+                        aSpan[0].innerHTML = aP[0].innerHTML.length-- + "/" + lengL;
+                        aSpan[1].innerHTML = aP[1].innerHTML.length++ + "/" + lengL;
+                        if(i == 5){
+                            i = 0;
+                        }else{
+                            i++;
+                        }
+                        for(var j = 0;j<aLi.length;j++){
+                            if(j == i){
+                                aLi[j].className = "active";
+                            }else{
+                                aLi[j].className = "";
+                            }
+                        }
+
+                    }
+
+
+                },30);
+
+            }
+            oTL.onclick = function() {
+                var i = 4;
+                aLi[4].className = "active";
+                timer = setInterval(function(){
+                    if(aP[1].innerHTML.length <=0){
+                        clearInterval(timer);
+                    }else{
+                        aP[0].innerHTML+= aP[1].innerHTML.substr(0,1);
+                        aP[1].innerHTML = aP[1].innerHTML.substring(1);
+                        aSpan[0].innerHTML = aP[1].innerHTML.length++ + "/" + lengL;
+                        aSpan[1].innerHTML = aP[1].innerHTML.length-- + "/" + lengL;
+                        if(i == 0){
+                            i = 4;
+                        }else{
+                            i--;
+                        }
+                        for(var j = 0;j<aLi.length;j++){
+                            if(j == i){
+                                aLi[j].className = "active";
+                            }else{
+                                aLi[j].className = "";
+                            }
+                        }
+                    }
+
+
+                },30);
+
+            }
+        </script>
+    </body>
+</html>
