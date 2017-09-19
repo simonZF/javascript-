@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>动画版文字搬运工</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                border:0;
+            }
+            #div1,#div2{
+                border:2px solid #000;
+                width: 400px;
+                height: 200px;
+                border-radius:8px;
+
+            }
+            span{
+                position:absolute;
+                transition: top 0.3s;
+                -moz-transition: top 0.3s; /* Firefox 4 */
+                -webkit-transition: top 0.3s; /* Safari 和 Chrome */
+                -o-transition: top 0.3s; /* Opera */
+            }
+            #btn1,#btn2{
+                display: inline-block;
+                padding:10px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div1">
+
+        </div>
+        <div id="btn1">↓</div>
+        <div id="btn2">↑</div>
+        <div id="div2"></div>
+        <div id="count"></div>
+    </body>
+    <script type="text/javascript">
+        var oDiv1 = document.getElementById("div1");
+        var aSpan = document.getElementsByTagName("span");
+        var oBtn1 = document.getElementById("btn1");
+        var oBtn2 = document.getElementById("btn2");
+        var oDiv2 = document.getElementById("div2");
+        var num = 0;
+        var str = "大江东去，浪淘尽，千古风流人物。故垒西边，人道是，三国周郎赤壁。乱石穿空，惊涛拍岸，卷起千堆雪。江山如画，一时多少豪杰。遥想公瑾当年，小乔初嫁了，雄姿英发。羽扇纶巾，谈笑间，樯橹灰飞烟灭。故国神游，多情应笑我，早生华发。人生如梦，一尊还酹江月。";
+        for(var i = 0; i< str.length;i++){
+            oDiv1.innerHTML += "<span style='top:"+ parseInt(i/25)*16 +"px;left:"+i%25*16 +"px'>"+str.charAt(i)+"</span>";
+        }
+        var timer = null;
+        oBtn1.onclick = function(){
+            timer = setInterval(function(){
+                // aSpan[num].style.top += "260px";
+                if(num < aSpan.length){
+                    aSpan[num].style.top =  parseInt(parseInt(aSpan[num].style.top) + 260) + "px";
+                    num++;
+                }else{
+                    clearInterval(timer);
+                    num = 0;
+                }
+            },30);
+
+        }
+        oBtn2.onclick = function(){
+            timer = setInterval(function(){
+                if(num < aSpan.length){
+                    aSpan[num].style.top =  parseInt(parseInt(aSpan[num].style.top) - 260) + "px";
+                    num++;
+                }else{
+                    clearInterval(timer);
+                    num = 0;
+                }
+            },30);
+        }
+    </script>
+</html>
